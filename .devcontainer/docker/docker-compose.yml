@@ -1,0 +1,14 @@
+name: zenn-public-docs
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ../../:/workspace:cached
+      -  zenn_public_docs_node_modules:/workspace/functions/node_modules
+    tty: true
+
+volumes:
+    zenn_public_docs_node_modules:

@@ -1,0 +1,14 @@
+{
+  "name": "zenn-public-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "takumi machino (https://github.com/MachinoTakumi52)",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "zenn-cli": "^0.1.157"
+  }
+}
