@@ -8,9 +8,12 @@ published: true
 
 # はじめに
 
-Web アプリケーション開発に携わり始めてから、気づけば 4 年が経とうとしている。この間、自分なりの開発スタイルや進め方が徐々に固まってきた。開発を効率化するためのテンプレートは用意しているものの、開発ルールをドキュメント化することなく、主に口頭で共有してきたのが現状だ。
+Web アプリケーション開発に携わり始めてから、気づけば 4 年が経とうとしている。  
+この間、自分なりの開発スタイルや進め方が徐々に固まってきた。  
+開発を効率化するためのテンプレートは用意しているものの、開発ルールをドキュメント化することなく、主に口頭で共有してきたのが現状だ。  
+その結果、レビュー時に開発者との認識のズレを埋めるため、余計な工数が発生してしまう場面が多々あった。  
+この課題を解決するため、自分の経験と考えをもとにフロントエンド開発のルールをドキュメント化することにした。
 
-その結果、レビュー時に開発者との認識のズレを埋めるため、余計な工数が発生してしまう場面が多々あった。この課題を解決するため、自分の経験と考えをもとにフロントエンド開発のルールをドキュメント化することにした。
 :::message
 ただし、このルールは中小規模の開発を前提としており、すべての開発規模や環境で役立つものではないことに注意してほしい。
 あくまで一つの参考として活用してもらえればと思う。
@@ -18,11 +21,22 @@ Web アプリケーション開発に携わり始めてから、気づけば 4 �
 
 # 　開発環境
 
-以下のリンク内の README を参照してほしい。
-ちなみにリンクは、vue/TS/vuetify の開発環境テンプレートの git。
-`TODO:自身のフロントの開発環境gitのパスを貼る`
+[開発環境テンプレートの git](https://github.com/MachinoTakumi52/TypeScriptWithVue)
 
 # 共通
+
+## 基本ルール
+
+- **原則公式サイトのルールに準ずる**
+  基本の言語ルールは、公式サイトに準ずる。  
+  その中で、以降記載のルールを定義する。
+
+  [typescript 公式](https://www.typescriptlang.org/docs/)  
+  [typescript 入門](https://typescriptbook.jp/)
+  [typescript コーディング規約](https://typescript-jp.gitbook.io/deep-dive/styleguide)
+  [Vue 公式](https://ja.vuejs.org/guide/introduction)
+  [Vue コーディング規約](https://ja.vuejs.org/style-guide/)
+  [Vuetify 公式](https://vuetifyjs.com/ja/getting-started/installation/)
 
 ## 命名規則
 
@@ -35,6 +49,18 @@ Web アプリケーション開発に携わり始めてから、気づけば 4 �
   それにより多少名前が長くなることは問題ない。
 - **配列,リスト名**
   `〇〇List`のようにするのではなく`〇〇s`とする。
+- **エレメントイベントに対する関数名**
+  通常の関数とエレメントイベントとの差別化のために`on{イベント名}〇〇`のように作成する。
+
+  ```typescript
+  // クリックイベント
+  cosnt onClickSaveData = () =>{}
+  ```
+
+## カラー定義
+
+- **16 進数カラーコードを使用する**
+  色指定時は、16 進数カラーコード(HEXA)を使用する。
 
 # 開発ドキュメント[Typescript]
 
@@ -76,6 +102,21 @@ const sampleString: string = "Hello world";
 :::message
 vue の開発ドキュメントで書くが、`ref`オブジェクトの際は、ジェネリクスにのみ型を宣言する。
 :::
+
+- **文字列結合はテンプレートリテラルを使用**
+  可読性が上がるため。
+
+  ```typescript
+  // NG
+  const sample = (text: string): void => {
+    return "hello " + text;
+  };
+
+  // OK
+  const sample = (text: string): void => {
+    return "hello ${text}";
+  };
+  ```
 
 ## 関数定義
 
@@ -253,9 +294,9 @@ vue の開発ドキュメントで書くが、`ref`オブジェクトの際は�
 - **相対パスは使用しない。**
   パッケージ以外の `import` は `@` を利用する
 
-```typescript
-import { getSamples } from "@/services/sampleService";
-```
+  ```typescript
+  import { getSamples } from "@/services/sampleService";
+  ```
 
 - **`default export` の禁止**
   `default export` は各所で名前を統一することが難しい。
@@ -263,8 +304,188 @@ import { getSamples } from "@/services/sampleService";
 
 # 開発ドキュメント[Vue]
 
-TODO
+## リアクティブオブジェクト
+
+- **type 宣言はしない**
+  `type` 宣言と `ref` の型付けの２つが存在するとみにくいため、ジェネリクスにのみ型を宣言する。
+
+  ```typescript
+  const sample = ref<string | null>(null);
+  ```
+
+- **`reacitive`オブジェクトは使用しない**
+  リアクティブには、`ref`と`reactive`が存在するが以下の点から`ref`を使用し原則`reactive`を使用しない。
+  1. [公式](https://ja.vuejs.org/guide/essentials/reactivity-fundamentals#limitations-of-reactive)でも述べられているようにいくつか制限がある。
+  2. リアクティブオブジェクトと通常オブジェクトの判別がつきにくい。
+  3. [公式](https://ja.vuejs.org/guide/essentials/reactivity-fundamentals.html#declaring-reactive-state-1)より Composition API では、`ref`を推奨している。
+
+## 条件付きレンダリング
+
+- **`v-if`と`v-for`を併用しない**
+  同じ要素に`v-if`と`v-for`を付与すると`v-if`の方が先に評価されてしまうため併用しない。
+
+## リストレンダリング
+
+- **キー属性は必ず付ける**
+  キー属性を付与しなければ、リアクティブなリスト値が変更された時、レンダリングの不整合がおきてしまうため。
+
+  ```typescript
+  // NG
+  <script setup lang="ts">
+  const samples = ref<string[]>(["あ","い","う"]);
+
+  </script>
+  <template>
+    <div v-for="sample of samples">{{sample}}</div>
+  </template>
+
+  ```
+
+  ```typescript
+  // OK
+  <script setup lang="ts">
+  const samples = ref<string[]>(["あ","い","う"]);
+
+  </script>
+  <template>
+    <div v-for="sample of samples" :key="sample">{{sample}}</div>
+  </template>
+
+  ```
+
+- **キー属性に`index`を使用しない**
+  上記記載内容と同様、レンダリングの不整合がおきてしまうため。
+
+- **`for-of` を使用する**
+  `for-in` でも `for-of` でもいけるが `typescript` と合わせるように `for-of` を使用する。
+
+- **リアクティブな値の変更イベントは、watch を使用**
+  `input`タグなどの`change`イベントで変更値を取得することができるが、原則`watch`でリアクティブな値を監視して処理を実行させる。
+  リアクティブに値が入ってくるのに`change`イベントの変更値を取る必要がないため。
+
+  ```typescript
+  // NG
+
+  // リアクティブ値
+  <script setup lang="ts">
+  const sample = ref<string | null>(null);
+
+  // 変更イベント
+  const changeInput = (changeValue: string): void => {
+    // 処理
+  }
+  </script>
+  <template>
+    <input @change="changeInput" v-model="sample" />
+  </template>
+  ```
+
+  ```typescript
+  // OK
+
+  <script setup lang="ts">
+  // リアクティブ値
+  const sample = ref<string | null>(null);
+
+  // 変更イベント
+  watch(sample, async (newValue, oldValue) => {
+    // 処理
+  })
+
+  </script>
+  <template>
+    <input v-model="sample" />
+  </template>
+  ```
+
+## ウォッチャー
+
+- **`watchEffect`は原則禁止**
+  内部の例アクティブ値の変更をすべて検知するため処理が追いづらい。
+
+## コンポーネント
+
+- **`defineProps` に `withDefaults` は使用しない**
+  `withDefaults`は、`props`の初期値を設定できるが、使用せずに指定不要なら`optional`を使用して`undefined`の対応を内部で行う。
+
+- **双方向バインディングの値は`defineModel`を使用する**
+  `defineProps`内に定義できるが、他`props`との差別化と型推論が効きやすくなる観点から`defineModel`を使用する。
+  `defineProps`は、基本必須で定義する。
+
+- **defineExpose は原則禁止**
+  コンポーネント間の結合度が高くなり変更が大変になる可能性があるため。
 
 # 開発ドキュメント[Vuetify]
 
-TODO
+## リアクティブオブジェクト
+
+- **入力系コンポーネントの `v-model` に渡す `ref` の型は必ず `null` を考慮する**
+  clearable でのクリア時が null となるため `<xxx | null>` のような型を宣言する。
+
+  ```typescript
+  const textFiled = ref<string | null>(null);
+  ```
+
+  例外として v-file-input で multiple を指定する場合はクリア時は空の配列となるので以下のように初期化。
+
+  ```typescript
+  const files = ref<File[]>([]);
+  ```
+
+  ただし multiple を指定しない場合は通常通り null を考慮して以下のように初期化。
+
+  ```typescript
+  const files = ref<File[] | null>(null);
+  ```
+
+## バリデーション
+
+- **`Rules` は基本的に `template` の内部で直接配列で定義**
+  コンポーネントの検証をまとめたモジュールからバリデーションを呼び出し定義する。
+
+  ```typescript
+  <v-text-field :rules="[textFieldRules.required]"></v-text-field>
+  ```
+
+  検証を行うためには、以下のようにコンポーネントに`ref`を設定することで検証が可能になる。
+
+  ```typescript
+  <script setup lang="ts">
+    // リアクティブ値
+    const name = ref<string | null>(null);
+
+    // Form
+    const form = ref<VForm>();
+
+    // クリックイベント
+    const onClick = ():vold =>{
+      // 入力値検証
+      const validateResult = await form.value!.validate();
+      if (validateResult.valid === false) {
+        // エラー処理
+        return;
+      }
+    }
+  </script>
+  <template>
+    <v-btn @click="onClick">登録</v-btn>
+    <v-form ref="form">
+      <v-text-field
+        v-model="name"
+        :rules="[textFieldRules.required]"
+      ></v-text-field>
+    </v-form>
+    </template>
+  ```
+
+## グリッドシステム
+
+- **原則使用しない**
+  ` <v-row>``<v-col> ` のグリッドシステムは使用しない。
+  基本的に flex でレイアウトを組んでいく。
+
+## vuetify のスタイルクラス
+
+- **原則使用しない**
+  可読性を考慮するため、タグに直接 `style` を記述する。
+  共通で使用するものに関しては、`class`を作成する。
