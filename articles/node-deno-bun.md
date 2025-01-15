@@ -3,7 +3,7 @@ title: "JS,TSの実行環境について"
 emoji: "⛏️"
 type: "tech"
 topics: ["javascript", "typescript", "Node", "Deno", Bun]
-published: false
+published: true
 ---
 
 # はじめに
