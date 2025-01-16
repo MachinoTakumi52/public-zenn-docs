@@ -18,7 +18,7 @@ published: true
 # 　開発環境
 以下の開発環境を参考に(自身が作成した開発環境テンプレート)話を進めていく。
 フォルダ構造等の情報は、`README`に記載。
-[開発環境テンプレートの git](https://github.com/MachinoTakumi52/TypeScriptWithVue)
+https://github.com/MachinoTakumi52/TypeScriptWithVue
 
 # 共通
 
