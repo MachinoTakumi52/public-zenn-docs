@@ -62,6 +62,20 @@ https://github.com/MachinoTakumi52/TypeScriptWithVue
 # 開発ドキュメント[Typescript]
 
 ## コメント
+- **TODOの付け方**
+  だれのタスクかをわかりやすくするため以下のように自身の名前を入れて記述する
+  ```typescript
+  /**
+  * 文字列出力
+  * @returns
+  */
+  const exportString = (): void => {
+  // TODO:名前 後で処理を書く
+
+  //固定文字列を返却
+  return "Hello World";
+  };
+  ```
 
 - **変数/関数には、doc コメント を使用**
   変数、関数を定義した際のコメントは必ず doc コメントで書く。
