@@ -63,6 +63,20 @@ https://github.com/MachinoTakumi52/TypeScriptWithVue
 # 開発ドキュメント[Typescript]
 
 ## コメント
+- **TODOの付け方**
+  だれのタスクかをわかりやすくするため以下のように自身の名前を入れて記述する
+  ```typescript
+  /**
+  * 文字列出力
+  * @returns
+  */
+  const exportString = (): void => {
+  // TODO:名前 後で処理を書く
+
+  //固定文字列を返却
+  return "Hello World";
+  };
+  ```
 
 - **変数/関数には、doc コメント を使用**
   変数、関数を定義した際のコメントは必ず doc コメントで書く。
@@ -165,13 +179,15 @@ vue の開発ドキュメントで書くが、`ref`オブジェクトの際は�
 ## 定数定義
 
 - **宣言方法**
-  ネームスペース`Constants`で囲み、以下のように宣言する。
+  ネームスペース`Consts`で囲み、以下のように宣言する。
   このような宣言の利点は、`Object.values(Consts.XXX)` で値の配列取得可能だから。
   画面でのみ使用する共通化しない定数は不要。
+  言語に準ずるのであれば、定数とわかるように大文字スネークケースするが
+  日本人は大文字英語に慣れていなく可読性が少し落ちるためアッパーキャメルケースで定義する。
 
   ```typescript
   /** 定数 */
-  namespace Constants {
+  namespace Consts {
     /** 共通で使用する定数 */
     export const sample1 = {
       AAA: "aaa",
