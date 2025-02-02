@@ -3,7 +3,7 @@ title: "バックエンド開発ドキュメント(C# .NET webAPI)"
 emoji: "📄"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Csharp", "dotnet", "webAPI"]
-published: false
+published: true
 ---
 
 # はじめに
