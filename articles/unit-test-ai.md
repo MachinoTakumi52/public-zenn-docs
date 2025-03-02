@@ -3,7 +3,7 @@ title: "詳細設計書から単体テスト仕様書作成"
 emoji: "📄"
 type: "tech"
 topics: ["openAI", "生成AI", "設計書"]
-published: true
+published: false
 ---
 
 # はじめに

@@ -2,7 +2,7 @@
 title: "NSN判別システム"
 emoji: "🔫"
 type: "tech"
-topics: ["azure", "node", "vue", "vuetify", "dotnet"]
+topics: ["xserver", "node", "vue", "vuetify", "dotnet"]
 published: false
 ---
 
@@ -68,7 +68,8 @@ Contract Number 入力時、以下の内容を表示
   Vuetify
 
 - 環境(バックエンド)
-  C# dotnet webAPI
+  PHP
+  laravel
 
 # 参考資料
 
