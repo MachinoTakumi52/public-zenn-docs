@@ -3,7 +3,7 @@ title: ".NET Native AOTとは"
 emoji: "📃"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Csharp", "dotnet"]
-published: false
+published: true
 ---
 
 # はじめに
