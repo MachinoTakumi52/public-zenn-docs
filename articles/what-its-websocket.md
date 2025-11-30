@@ -12,6 +12,9 @@ published: true
 WebSocket は、一度だけ HTTP で「プロトコルのアップグレード」を行い、その後はクライアントとサーバーが 双方向にデータを送り合える 常時接続の通信路を確立する仕組みを提供する。
 本記事では、WebSocket の仕組みと通信の流れを解説し、TypeScript を使った具体的な実装例 も紹介する。
 
+ 双方向通信については、以下の記事にまとめてあるので興味がある方はぜひ。
+https://zenn.dev/takumi_machino/articles/bidirectional-communication 
+
 # 1. WebSocket は何を解決するプロトコルなのか
 
 従来の Web は、HTTP による一問一答型の通信モデルを持つ。
