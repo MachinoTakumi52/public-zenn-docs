@@ -2,7 +2,7 @@
 title: "websocketとは"
 emoji: "🪢"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["websocket"]
+topics: ["websocket","typescript"]
 published: true
 ---
 
